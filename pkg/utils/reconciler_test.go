@@ -37,7 +37,7 @@ var (
 func TestGetDiscoveryClient(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -55,7 +55,7 @@ func TestCreateOrUpdate(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 	serviceAccount := &corev1.ServiceAccount{ObjectMeta: defaultMeta}
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -74,7 +74,7 @@ func TestCreateOrUpdate(t *testing.T) {
 func TestDeleteResources(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -125,7 +125,7 @@ func TestGetOpConfigMap(t *testing.T) {
 		},
 	}
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -149,7 +149,7 @@ func TestManageError(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 	err := fmt.Errorf("test-error")
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -168,7 +168,7 @@ func TestManageError(t *testing.T) {
 func TestManageSuccess(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
@@ -185,7 +185,7 @@ func TestManageSuccess(t *testing.T) {
 func TestIsGroupVersionSupported(t *testing.T) {
 	logf.SetLogger(logf.ZapLogger(true))
 
-	runtimecomponent := createRuntimeComponent(name, namespace, spec)
+	runtimecomponent := createRuntimeComponent(name, namespace, spec, labels, annotations)
 	objs, s := []runtime.Object{runtimecomponent}, scheme.Scheme
 	s.AddKnownTypes(appstacksv1beta1.SchemeGroupVersion, runtimecomponent)
 	cl := fakeclient.NewFakeClient(objs...)
