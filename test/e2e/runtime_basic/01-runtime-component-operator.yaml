@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: runtime-component-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: runtime-component-operator
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - services
+  - endpoints
+  - persistentvolumeclaims
+  - events
+  - configmaps
+  - secrets
+  - serviceaccounts
+  - pods/exec
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - replicasets
+  - statefulsets
+  verbs:
+  - '*'
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - '*'
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - '*'
+- apiGroups:
+  - apps
+  resourceNames:
+  - runtime-component-operator
+  resources:
+  - deployments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - app.stacks
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- apiGroups:
+  - image.openshift.io
+  resources:
+  - imagestreams
+  - imagestreamtags
+  verbs:
+  - '*'
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+  - routes/custom-host
+  verbs:
+  - '*'
+- apiGroups:
+  - serving.knative.dev
+  resources:
+  - services
+  verbs:
+  - '*'
+- apiGroups:
+  - cert-manager.io
+  resources:
+  - certificates
+  verbs:
+  - '*'
+- apiGroups:
+  - app.k8s.io
+  resources:
+  - applications
+  verbs:
+  - '*'
+- apiGroups:
+  - apps.openshift.io
+  resources:
+  - servicebindingrequests
+  verbs:
+  - '*'
+- apiGroups:
+  - networking.k8s.io
+  - extensions
+  resources:
+  - ingresses
+  verbs:
+  - '*'
+---  
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: runtime-component-operator
+subjects:
+- kind: ServiceAccount
+  name: runtime-component-operator
+roleRef:
+  kind: Role
+  name: runtime-component-operator
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: runtime-component-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: runtime-component-operator
+  template:
+    metadata:
+      labels:
+        name: runtime-component-operator
+    spec:
+      serviceAccountName: runtime-component-operator
+      containers:
+        - name: runtime-component-operator
+          image: applicationstacks/operator:0.7.1
+          command:
+          - runtime-component-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              value: ""
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "runtime-component-operator"
