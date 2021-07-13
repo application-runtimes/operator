@@ -1,0 +1,19 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestAssert
+timeout: 60
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-runtime-component
+status:
+  readyReplicas: 1
+---
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+    - readinessProbe:
+        initialDelaySeconds: 1
+      livenessProbe:
+        initialDelaySeconds: 4

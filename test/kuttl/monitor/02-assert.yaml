@@ -1,0 +1,46 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestAssert
+timeout: 60
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-runtime-component
+status:
+  readyReplicas: 1
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: example-runtime-component
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: example-runtime-component
+  endpoints:
+  - path: "/path"
+    scheme: "myScheme"
+    port: 3000-tcp
+    params:
+      params:
+      - param1
+      - param2
+    scrapeTimeout: 10s
+    interval: 30s
+    bearerTokenFile: myBTF
+    tlsConfig:
+      insecureSkipVerify: true
+    basicAuth:
+      password:
+        key: password
+      username:
+        key: username
+---
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: example-runtime-component
+spec:
+  monitoring:
+    endpoints:
+    - path: "/path"

@@ -1,0 +1,9 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestSuite
+namespace: test-project
+# The default is to run 8 tests in parallel
+# As there is currently only one namespace, this seems bad
+parallel: 1
+#commands:
+#  - command: operator-sdk run --local
+#    background:  true

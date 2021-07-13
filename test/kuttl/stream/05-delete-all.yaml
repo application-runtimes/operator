@@ -1,0 +1,8 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestStep
+delete:
+# Delete all image streams in the test namespace
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+- apiVersion: app.stacks/v1beta1
+  kind: RuntimeComponent

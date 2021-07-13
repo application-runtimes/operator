@@ -1,0 +1,10 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: example-runtime-component
+spec:
+  # Add fields here
+  applicationImage: 'k8s.gcr.io/pause:2.0'
+  replicas: 1
+  storage:
+

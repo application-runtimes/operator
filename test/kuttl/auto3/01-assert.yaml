@@ -1,0 +1,19 @@
+apiVersion: kuttl.dev/v1beta1
+kind: TestAssert
+timeout: 60
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scale3-runtime-component
+status:
+  readyReplicas: 3
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: scale3-runtime-component
+spec:
+  maxReplicas: 5
+  minReplicas: 3
+  targetCPUUtilizationPercentage: 50

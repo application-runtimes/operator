@@ -1,0 +1,5 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: scale3-runtime-component
+

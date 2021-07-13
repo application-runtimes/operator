@@ -1,0 +1,13 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: scale3-runtime-component
+spec:
+  resourceConstraints:
+    requests:
+      cpu: "0.5"
+  autoscaling:
+    maxReplicas: 5
+    minReplicas: 3
+    targetCPUUtilizationPercentage: 50
+

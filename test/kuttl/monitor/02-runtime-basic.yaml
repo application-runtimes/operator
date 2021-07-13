@@ -1,0 +1,24 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: example-runtime-component
+spec:
+  monitoring:
+    endpoints:
+    - path: "/path"
+      scheme: "myScheme"
+      params:
+        params:
+        - "param1"
+        - "param2"
+      interval: "30s"
+      scrapeTimeout: "10s"
+      tlsConfig:
+        insecureSkipVerify: true
+      bearerTokenFile: "myBTF"
+      basicAuth:
+        username:
+          key: "username"
+        password:
+          key: "password"
+      

@@ -1,0 +1,9 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: example-runtime-component
+spec:
+  monitoring:
+    labels:
+      apps-prometheus: ''
+

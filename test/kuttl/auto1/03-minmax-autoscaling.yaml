@@ -1,0 +1,10 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: example-runtime-component
+spec:
+  autoscaling:
+    maxReplicas: 1
+    minReplicas: 6
+    targetCPUUtilizationPercentage: 10
+

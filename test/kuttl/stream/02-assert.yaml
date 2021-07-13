@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-runtime-component
+status:
+  readyReplicas: 1
+---
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - image: navidsh/demo-day@sha256:391a9cc130bb96e6b4c3ea0f1c0ac8ae231a5d10a34232e6efd46ab5a6162472

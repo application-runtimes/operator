@@ -1,0 +1,8 @@
+apiVersion: app.stacks/v1beta1
+kind: RuntimeComponent
+metadata:
+  name: scale3-runtime-component
+spec:
+  resourceConstraints:
+  autoscaling:
+

@@ -1,0 +1,16 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: imagestream-example
+spec:
+  tags:
+  - from:
+      kind: DockerImage
+      name: navidsh/demo-day:v0.1.0
+    name: latest
+status:
+  tags:
+  - tag: latest
+    items:
+    - image: sha256:b441e81a681df8fdf6922f00318fb78d15dea7f24823eef58b2480aa84aba823
+
